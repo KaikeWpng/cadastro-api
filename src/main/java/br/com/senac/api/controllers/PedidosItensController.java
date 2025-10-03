@@ -4,6 +4,7 @@ import br.com.senac.api.controllers.dtos.PedidosItensRequestDTO;
 import br.com.senac.api.modelos.PedidosItens;
 import br.com.senac.api.services.PedidosItensService;
 import br.com.senac.api.services.PedidosService;
+import br.com.senac.api.utils.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,8 +28,12 @@ public class PedidosItensController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<?> criar(@RequestBody PedidosItensRequestDTO pedido){
-
+    public ResponseEntity<?> criar(@RequestBody PedidosItensRequestDTO item){
+        try {
+            return ResponseEntity.created(null).body(pedidosItensService.criar(item));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(ResponseUtil.response(e.getMessage()));
+        }
     }
 
 }
