@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping
+@RequestMapping("/pedidos")
 public class PedidosController {
 
     @Autowired
@@ -24,7 +24,7 @@ public class PedidosController {
     }
 
     @PostMapping("/criar")
-    public ResponseEntity<?> criar(PedidosRequestDTO pedido) {
+    public ResponseEntity<?> criar(@RequestBody PedidosRequestDTO pedido) {
         try {
             return ResponseEntity.created(null).body(pedidosService.criar(pedido));
         } catch (Exception e) {
